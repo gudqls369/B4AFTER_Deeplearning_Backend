@@ -22,14 +22,20 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
-class CustomTokenObtainPairSerializer(TokenObtainPairSerializer): #view.py에서 import하는 내용, simple-jwt의 기본제공 Token...Serializer 상속
+class UserProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ("username",)
+
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
- 
-        token['username'] = user.username #token의 사용자 이메일 추가
-        token['token_message'] = '스파르타내일배움캠프 3회차 AI B4_AFTER' #token에 삽입할 메시지 입력
- 
+
+        token['username'] = user.username
+
         return token
 
 

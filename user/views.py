@@ -4,6 +4,11 @@ from rest_framework.response import Response
 from user.serializers import UserSerializer, UserProfileSerializer
 from rest_framework import permissions #permission Import
 from rest_framework.generics import get_object_or_404
+from user.serializers import CustomTokenObtainPairSerializer
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
  
 
@@ -31,3 +36,6 @@ class ProfileView(APIView): #로그인 회원의 username 확인
         user = get_object_or_404(user, id=user_id)
         serializer = UserProfileSerializer
         return Response(serializer.data)
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
