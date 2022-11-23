@@ -18,6 +18,7 @@ class Post(models.Model):
     content = models.TextField()
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
+    likes = models.ManyToManyField(User, blank=True, related_name='likes')
 
     def __str__(self):
         return str(self.content)
@@ -34,3 +35,4 @@ class Comment(models.Model):
 
     def __str__(self):
         return str(self.content)
+        
