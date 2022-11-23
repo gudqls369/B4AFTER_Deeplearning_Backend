@@ -332,4 +332,11 @@ pip-selfcheck.json
 .history
 .ionide
 
+venv*
+__pycache__
+.ipynb_checkpoints
+out.*
+trace.json
+*.egg-info
+
 # End of https://www.toptal.com/developers/gitignore/api/python,git,visualstudiocode,pycharm,venv,database
