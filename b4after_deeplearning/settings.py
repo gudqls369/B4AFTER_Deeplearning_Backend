@@ -32,15 +32,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'user',
+    'post',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'rest_framework',
-    'rest_framework_simplejwt',
+    'rest_framework', #restframework 추가
+    'rest_framework_simplejwt', #simplejwt 추가
     'corsheaders',
 
     'user',
@@ -135,7 +136,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-REST_FRAMEWORK = {
+REST_FRAMEWORK = { #simplejwt
     'DEFAULT_PERMISSION_CLASSES':[
         'rest_framework.permissions.AllowAny'
     ],
@@ -183,3 +184,5 @@ SIMPLE_JWT = {
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+AUTH_USER_MODEL = 'user.User' #user App의 User 모델(클래스)를 인증에 사용
