@@ -4,24 +4,10 @@ from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
 from post.models import Post, Image, Comment
 from post.serializers import (
-    PostSerializer, PostCreateSerializer,PostUpdateSerializer,
+    PostSerializer, PostDetailSerializer, PostCreateSerializer, PostUpdateSerializer,
     ImageSerializer, ImageCreateSerializer,
     CommentSerializer, CommentCreateSerializer
 )
-
-class PostView(APIView):
-    def get(self, request):
-        posts = Post.objects.all()
-        serializer = PostSerializer(posts, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def post(self, request):
-        serializer = PostCreateSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(user=request.user)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UploadView(APIView):
     def post(self, request):
@@ -54,10 +40,24 @@ class ImageView(APIView):
         else:
             return Response('권한이 없습니다', serializer.errors, status=status.HTTP_403_FORBIDDEN)
 
+class PostView(APIView):
+    def get(self, request):
+        posts = Post.objects.all()
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        serializer = PostCreateSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class PostDetailView(APIView):
     def get(self, request, post_id):
         post = get_object_or_404(Post,  id=post_id)
-        serializer = PostSerializer(post)
+        serializer = PostDetailSerializer(post)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def put(self, request, post_id):
@@ -129,4 +129,4 @@ class LikeView(APIView):
             return Response('좋아요를 취소했습니다', status=status.HTTP_204_NO_CONTENT)
         else:
             post.likes.add(request.user)
-            return Response('좋아요를 했습니다', status=status.HTTP_200_OK)
+            return Response('좋아요를 했습니다', status=status.HTTP_201_CREATED)

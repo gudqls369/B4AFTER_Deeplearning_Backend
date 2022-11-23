@@ -33,6 +33,19 @@ class ImageCreateSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
     image = ImageSerializer()
+
+    def get_user(self, obj):
+        return obj.user.username
+
+    def get_image(self, obj):
+        return obj.image
+    class Meta:
+        model = Post
+        fields = ('id', 'user', 'image')
+
+class PostDetailSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+    image = ImageSerializer()
     comment_count = serializers.SerializerMethodField()
     comments = CommentSerializer(many=True)
     like_count = serializers.SerializerMethodField()
