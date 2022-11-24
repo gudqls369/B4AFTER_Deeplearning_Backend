@@ -8,6 +8,10 @@ from post.serializers import (
     ImageSerializer, ImageCreateSerializer,
     CommentSerializer, CommentCreateSerializer
 )
+# import os
+# import sys
+# sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+# from deeplearning.style_transfer.image_transfer import *
 
 class UploadView(APIView):
     def post(self, request):
