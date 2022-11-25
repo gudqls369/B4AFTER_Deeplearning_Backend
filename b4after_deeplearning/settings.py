@@ -112,11 +112,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'Asia/seoul'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
-USE_TZ = False # 배포를 위해 변경 (TIME_ZONE 관련)
+USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
