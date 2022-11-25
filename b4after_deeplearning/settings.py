@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'rest_framework', #restframework 추가
     'rest_framework_simplejwt', #simplejwt 추가
     'corsheaders',
-    'b4after_deeplearning',
     'user',
     'post',
 ]
@@ -183,3 +182,5 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = 'user.User' #user App의 User 모델(클래스)를 인증에 사용
+
+CORS_ALLOW_ALL_ORIGINS = True
