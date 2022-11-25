@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from post.models import Post, Image, Comment
+from post.models import Post, Image, Comment, ImageModel
 
 class CommentSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
@@ -28,7 +28,16 @@ class ImageSerializer(serializers.ModelSerializer):
 class ImageCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
-        fields = ('before_image', 'after_image')
+        fields = ('before_image', 'model', 'after_image',)
+        
+class ImageModelSerializer(serializers.ModelSerializer):
+    model = serializers.SerializerMethodField()
+    
+    def get_model(self,obj):
+        return obj.model.name
+    class Meta:
+        model = ImageModel
+        fields = ('model',)
 
 class PostSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()

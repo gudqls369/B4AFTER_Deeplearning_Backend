@@ -2,29 +2,48 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
-from post.models import Post, Image, Comment
+from post.models import Post, Image, Comment, ImageModel
 from post.serializers import (
     PostSerializer, PostDetailSerializer, PostCreateSerializer, PostUpdateSerializer,
-    ImageSerializer, ImageCreateSerializer,
+    ImageSerializer, ImageCreateSerializer, ImageModelSerializer,
     CommentSerializer, CommentCreateSerializer
 )
-# import os
-# import sys
-# sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-# from deeplearning.style_transfer.image_transfer import *
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+from post.deeplearning.style_transfer.image_transfer import *
 
 class UploadView(APIView):
     def post(self, request):
         serializer = ImageCreateSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(user=request.user)
-
-            # 이미지 변환 함수
-            # serializer.save(after_image=request.image)
+            image = serializer.save(user=request.user)
+            data_type = image.model
+            bf_img = image.before_image
+            print(data_type)
+            print(bf_img)
+            aft_image = img_transfer(data_type,bf_img)
             
+            name1 = data_type[data_type.index('/')+1:]
+    
+            image_name = str(bf_img)
+            
+            name2 = image_name[image_name.index('/')+1:]
+    
+            serializer.save(after_image=f"after_image/{name1}+{name2}")
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
+            print(serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+class ImageModelView(APIView):
+    def get(self, request, imagemodel_id):
+        model = get_object_or_404(ImageModel, id=imagemodel_id)
+        serializer = ImageModelSerializer(model)
+        print(model.model.name)
+        print(model.model.path)
+        print(model.model.url)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class ImageView(APIView):
     def get(self, request, image_id):
