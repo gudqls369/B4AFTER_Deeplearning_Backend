@@ -32,8 +32,8 @@ class mockView(APIView):
         return Response("get 요청") #로그인 완료시 메시지 보여줌
 
 class ProfileView(APIView): #로그인 회원의 username 확인
-    def get(self, request, user_id):
-        user = get_object_or_404(user, id=user_id)
+    def get(self, request):
+        user = get_object_or_404(user)
         serializer = UserProfileSerializer
         return Response(serializer.data)
 
