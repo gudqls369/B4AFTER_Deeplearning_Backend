@@ -116,7 +116,7 @@ TIME_ZONE = 'Asia/seoul'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False # 배포를 위해 변경 (TIME_ZONE 관련)
 
 
 # Static files (CSS, JavaScript, Images)
