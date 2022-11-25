@@ -126,8 +126,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'post\deeplearning\style_transfer\media'
+MEDIA_URL = 'post/deeplearning/style_transfer/media/media/'
+MEDIA_ROOT = BASE_DIR / 'post/deeplearning/style_transfer/media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -183,3 +183,5 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = 'user.User' #user App의 User 모델(클래스)를 인증에 사용
+
+CORS_ALLOW_ALL_ORIGINS = True

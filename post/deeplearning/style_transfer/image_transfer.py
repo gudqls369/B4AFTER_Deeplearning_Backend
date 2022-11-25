@@ -1,14 +1,15 @@
 import cv2
 import numpy as np
 
-def dl(image_path):
-    _CUR_DIR = 'C:/Users/gudql/Desktop/B4AFTER_Deeplearning/B4AFTER_Deeplearning_Backend/post/deeplearning/style_transfer'
+def img_transfer(model_type, image_file):
+    
+    model_path = "post/deeplearning/style_transfer/media/" + model_type
 
-    net = cv2.dnn.readNetFromTorch(_CUR_DIR + '/models/instance_norm/la_muse.t7')
+    net = cv2.dnn.readNetFromTorch(model_path)
 
-    path = "media\\" + str(image_path)
+    image_path = "post/deeplearning/style_transfer/media/" + str(image_file)
 
-    img = cv2.imread(_CUR_DIR + '/image/cat1.png')
+    img = cv2.imread(image_path)
 
     h, w, c = img.shape
 
@@ -26,4 +27,13 @@ def dl(image_path):
     output = np.clip(output, 0, 255)
     output = output.astype('uint8')
     
+    name1 = model_type[model_type.index('/')+1:]
+    
+    image_name = str(image_file)
+    
+    name2 = image_name[image_name.index('/')+1:]
+    
+    cv2.imwrite(f"post/deeplearning/style_transfer/media/after_image/{name1}+{name2}", output)
+    
     return output
+

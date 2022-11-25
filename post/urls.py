@@ -3,11 +3,12 @@ from post.views import (
     PostView, PostDetailView, 
     UploadView, ImageView, 
     CommentView, CommentDetailView, 
-    LikeView
+    LikeView, ImageModelView
 )
 
 urlpatterns = [
     path('', PostView.as_view(), name="main_view"),
+    path('choosemodel/<int:imagemodel_id>', ImageModelView().as_view(), name="imagemodel_view"),
     path('upload/', UploadView.as_view(), name="post_create_view"),
     path('upload/<int:image_id>/', ImageView.as_view(), name="image_view"),
     path('<int:post_id>/', PostDetailView.as_view(), name="post_detail_view"),
