@@ -415,5 +415,9 @@ out.*
 trace.json
 *.egg-info
 
+### image files
+after_image
+before_image
+
 # End of https://www.toptal.com/developers/gitignore/api/python,git,visualstudiocode,pycharm,venv,database
 # End of https://www.toptal.com/developers/gitignore/api/python,visualstudiocode,pycharm,venv,database,django
