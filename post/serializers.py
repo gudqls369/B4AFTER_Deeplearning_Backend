@@ -42,23 +42,28 @@ class ImageModelSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
     image = ImageSerializer()
+    likes = serializers.StringRelatedField(many=True)
+    like_count = serializers.SerializerMethodField()
 
     def get_user(self, obj):
         return obj.user.username
 
     def get_image(self, obj):
         return obj.image
+
+    def get_like_count(self, obj):
+        return obj.likes.count()
     class Meta:
         model = Post
-        fields = ('id', 'user', 'image')
+        fields = ('id', 'user', 'image', 'update_at', 'likes', 'like_count')
 
 class PostDetailSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
     image = ImageSerializer()
-    comment_count = serializers.SerializerMethodField()
     comments = CommentSerializer(many=True)
-    like_count = serializers.SerializerMethodField()
+    comment_count = serializers.SerializerMethodField()
     likes = serializers.StringRelatedField(many=True)
+    like_count = serializers.SerializerMethodField()
 
     def get_user(self, obj):
         return obj.user.username

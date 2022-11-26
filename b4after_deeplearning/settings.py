@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-3(2(j*k$%h-b(s_!)kr%&l1rwki43kc01z62wanywd@ri0od5$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['54.180.133.252']
 
 
 # Application definition
@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'rest_framework', #restframework 추가
     'rest_framework_simplejwt', #simplejwt 추가
     'corsheaders',
-    'b4after_deeplearning',
     'user',
     'post',
 ]
@@ -113,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'Asia/seoul'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 

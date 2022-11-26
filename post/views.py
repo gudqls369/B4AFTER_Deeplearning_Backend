@@ -14,6 +14,11 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from post.deeplearning.style_transfer.image_transfer import *
 
 class UploadView(APIView):
+    def get(self, request):
+        image = Image.objects.all()
+        serializer = ImageSerializer(image, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     def post(self, request):
         serializer = ImageCreateSerializer(data=request.data)
         if serializer.is_valid():
