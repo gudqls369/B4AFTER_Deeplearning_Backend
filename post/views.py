@@ -25,8 +25,6 @@ class UploadView(APIView):
             image = serializer.save(user=request.user)
             data_type = image.model
             bf_img = image.before_image
-            print(data_type)
-            print(bf_img)
             aft_image = img_transfer(data_type,bf_img)
             
             name1 = data_type[data_type.index('/')+1:]
@@ -38,16 +36,12 @@ class UploadView(APIView):
             serializer.save(after_image=f"after_image/{name1}+{name2}")
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
-            print(serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 class ImageModelView(APIView):
     def get(self, request, imagemodel_id):
         model = get_object_or_404(ImageModel, id=imagemodel_id)
         serializer = ImageModelSerializer(model)
-        print(model.model.name)
-        print(model.model.path)
-        print(model.model.url)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class ImageView(APIView):

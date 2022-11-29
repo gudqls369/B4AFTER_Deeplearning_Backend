@@ -2,15 +2,15 @@ import cv2
 import numpy as np
 
 def img_transfer(model_type, image_file):
-    
+    # 모델 파일 불러오기
     model_path = "post/deeplearning/style_transfer/media/" + model_type
-
     net = cv2.dnn.readNetFromTorch(model_path)
 
+    # 변환할 이미지 파일 불러오기
     image_path = "post/deeplearning/style_transfer/media/" + str(image_file)
-
     img = cv2.imread(image_path)
 
+    # 이미지 변환 작업
     h, w, c = img.shape
 
     img = cv2.resize(img, dsize=(500, int(h / w * 500)))
@@ -27,6 +27,7 @@ def img_transfer(model_type, image_file):
     output = np.clip(output, 0, 255)
     output = output.astype('uint8')
     
+    # 결과물 파일 저장 및 경로, 이름 설정
     name1 = model_type[model_type.index('/')+1:]
     
     image_name = str(image_file)
